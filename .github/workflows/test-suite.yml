@@ -19,6 +19,12 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
 
+      - name: Run NPM install # [tl! add:start]
+        run: npm install
+
+      - name: Compile Assets for UI Testing
+        run: npm run build # [tl! add:end]
+
       - name: Prepare Laravel Application
         run: |
           cp .env.ci .env
