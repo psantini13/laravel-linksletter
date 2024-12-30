@@ -13,7 +13,8 @@ use Illuminate\Http\RedirectResponse;
 
 class LinkController extends Controller
 {
-    public function index(): View|Factory|Application {
+    public function index(): View|Factory|Application
+    {
         $links = Link::query()
             // Filter by tenant id (user_id)
             ->where('user_id', auth()->id())
@@ -25,7 +26,8 @@ class LinkController extends Controller
         ]);
     }
 
-    public function create(): View|Factory|Application {
+    public function create(): View|Factory|Application
+    {
         $users = User::all();
 
         return view('links.create', [
@@ -33,7 +35,8 @@ class LinkController extends Controller
         ]);
     }
 
-    public function store(StoreLinkRequest $request): RedirectResponse {
+    public function store(StoreLinkRequest $request): RedirectResponse
+    {
         $link = Link::create(
             $request->validated() + [
                 'user_id' => auth()->id(),
@@ -51,7 +54,8 @@ class LinkController extends Controller
             ->with('message', 'Link created successfully.');
     }
 
-    public function edit(Link $link): View|Factory|Application {
+    public function edit(Link $link): View|Factory|Application
+    {
         // Check if user is the owner of the link
         abort_unless($link->user_id === auth()->id(), 404);
 
@@ -63,7 +67,8 @@ class LinkController extends Controller
         ]);
     }
 
-    public function update(UpdateLinkRequest $request, Link $link): RedirectResponse {
+    public function update(UpdateLinkRequest $request, Link $link): RedirectResponse
+    {
         abort_unless($link->user_id === auth()->id(), 404);
 
         $link->update($request->validated());
@@ -72,7 +77,8 @@ class LinkController extends Controller
             ->with('message', 'Link updated successfully.');
     }
 
-    public function destroy(Link $link): RedirectResponse {
+    public function destroy(Link $link): RedirectResponse
+    {
         abort_unless($link->user_id === auth()->id(), 404);
 
         $link->delete();
