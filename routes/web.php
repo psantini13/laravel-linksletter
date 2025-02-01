@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\LinkController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,13 @@ Route::controller(LinkController::class)->group(function () {
     Route::delete('links/{link}', 'destroy')->name('links.destroy');
 
 });
+
+Route::resource('issues', IssueController::class)->except(['edit', 'update', 'destroy']);
+/*
+Route::controller(IssueController::class)->group(function () {
+    Route::get('issues', 'index')->name('issues.index');
+    Route::get('issues/create', 'create')->name('issues.create');
+    Route::post('issues', 'store')->name('issues.store');
+});*/
 
 require __DIR__.'/auth.php';
