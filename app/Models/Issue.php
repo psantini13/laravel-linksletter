@@ -13,9 +13,11 @@ class Issue extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'description',
-        'status',
+        'subject',
+        'header_text',
+        'footer_text',
+        'links_html',
+        'sent_at',
         'user_id',
     ];
 
